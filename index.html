@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <title>Chainmonsters - Alpha 5 Launch</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/firacode/5.2.0/fira_code.min.css"
+      integrity="sha512-MbysAYimH1hH2xYzkkMHB6MqxBqfP0megxsCLknbYqHVwXTCg9IqHbk+ZP/vnhO8UEW6PaXAkKe2vQ+SWACxxA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+        
+      body {
+          cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='120' style='font-size:60px;'><text y='50%'>🔥</text></svg>") 16 0,auto;
+      }
+      #eta {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: "Fira Code";
+        font-size: 2.5rem;
+      }
+
+      #follower {
+        position: absolute;
+        padding: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="centered" id="eta"></div>
+    <div id="follower">
+      <img
+        src="https://playchainmonsters.com/images/chipleaf.png"
+        id="chippy"
+      />
+    </div>
+  </body>
+  <script>
+    const chippy = document.getElementById("follower");
+    let mouseX = 0,
+      mouseY = 0,
+      xp = 0,
+      yp = 0;
+    chippy.addEventListener("mouseover", () => {
+      mouseX = Math.floor(Math.random() * (window.innerWidth - 200));
+      mouseY = Math.floor(Math.random() * (window.innerHeight - 200));
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+      xp += (mouseX - xp) / 12;
+      yp += (mouseY - yp) / 12;
+      follower.style.left = xp + "px";
+      follower.style.top = yp + "px";
+    }
+
+    animate();
+
+    setInterval(() => {
+      const now = new Date().getTime();
+      const t = 1626076800000 - now;
+      if (t >= 0) {
+        const d = Math.floor(t / (1000 * 60 * 60 * 24));
+        const h = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((t % (1000 * 60)) / 1000);
+
+        const str =
+          (d > 0 ? d + " Day" + (d === 1 ? "" : "s") + ", " : "") +
+          (h > 0 ? h + " Hour" + (h === 1 ? "" : "s") : "") +
+          (m > 0 && s < 1 ? ", and" : ",") +
+          (m > 0 ? " " + m + " Minute" + (m === 1 ? "" : "s") : "") +
+          (s > 0 ? ", and" : "") +
+          (s > 0 ? " " + s + " Second" + (s === 1 ? "" : "s") : "");
+
+        document.getElementById("eta").innerHTML = str;
+      } else {
+        document.getElementById("eta").innerHTML = "It's here!";
+      }
+    }, 500);
+  </script>
+</html>
